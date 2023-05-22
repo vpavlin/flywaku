@@ -26,4 +26,4 @@ clean:
 	rm -f fly.toml
 
 destroy:
-	flyctl apps destroy $(NAME) 
+	$(FLYCTL) apps destroy $(NAME)
