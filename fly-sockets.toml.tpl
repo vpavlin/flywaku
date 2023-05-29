@@ -9,6 +9,10 @@ processes = []
 [build]
 image = "docker.io/statusteam/nim-waku:v0.17.0"
 
+[mounts]
+source="@@NAME@@"
+destination="/etc/letsencrypt"
+
 [[services]]
 internal_port = 9005
 protocol = "udp"
@@ -20,6 +24,12 @@ internal_port = 60000
 protocol = "tcp"
 [[services.ports]]
 port = 60000
+
+[[services]]
+internal_port = 8000
+protocol = "tcp"
+[[services.ports]]
+port = 8000
 
 
 [experimental]
@@ -38,6 +48,9 @@ cmd = [
   "--metrics-server=True",
   "--metrics-server-port=8003",
   "--metrics-server-address=0.0.0.0",
+  "--websocket-secure-support=true",
+  "--websocket-secure-key-path=/etc/letsencrypt/live/@@NAME@@.fly.dev/privkey.pem",
+  "--websocket-secure-cert-path=/etc/letsencrypt/live/@@NAME@@.fly.dev/fullchain.pem"
 ]
 
 #  "--discv5-discovery=true",

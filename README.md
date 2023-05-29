@@ -49,3 +49,19 @@ INF 2023-05-22 22:06:39.925+02:00 The node is reachable and supports all specifi
 ```
 
 In case the node is not available, you can try to run `make deploy` again to make sure the IP was properly assigned to the machine.
+
+## Run With  WSS (WebSockets Secure) Enabled
+
+To enable WSS for your Waku v2 Node, you need to first generate the certificates using Certbot
+
+```
+make certs
+```
+
+this will deploy an interim container which will obtain certificate and private key from Let's Encrypt and store them in a persistent volume
+
+Once this is done, you can run deployment with `WSS_ENABLED=1` flag to use different `fly.toml` template (i.e. `fly-sockers.toml.tpl`) to have the volume mounted and websocket cert and key configured for yout node
+
+```
+make deploy WSS_ENABLED=1
+```
