@@ -50,7 +50,8 @@ cmd = [
   "--metrics-server-address=0.0.0.0",
   "--websocket-secure-support=true",
   "--websocket-secure-key-path=/etc/letsencrypt/live/@@NAME@@.fly.dev/privkey.pem",
-  "--websocket-secure-cert-path=/etc/letsencrypt/live/@@NAME@@.fly.dev/fullchain.pem"
+  "--websocket-secure-cert-path=/etc/letsencrypt/live/@@NAME@@.fly.dev/fullchain.pem",
+  "--nodekey=$NODEKEY"
 ]
 
 #  "--discv5-discovery=true",

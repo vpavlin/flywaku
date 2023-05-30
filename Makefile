@@ -1,8 +1,9 @@
 NAME := $(USER)wakunode
 CERTBOT_IMAGE := certbot/certbot
 NWAKU_IMAGE := "docker.io/statusteam/nim-waku:v0.17.0"
-REGION := ams
+REGION := dfw
 WSS_ENABLED := 0
+NODEKEY := nodekey.pem
 
 FLYCTL := ./flyctl
 FLY_TOML_TEMPLATE := fly.toml.tpl
@@ -27,7 +28,7 @@ launch: fly.toml $(FLYCTL)
 scale:
 	$(FLYCTL) scale count -y 1
 
-deploy: launch 
+deploy: launch key
 	$(FLYCTL) deploy
 
 clean:
@@ -44,3 +45,11 @@ certs: $(FLYCTL)
 	)
 	$(FLYCTL) deploy --image $(CERTBOT_IMAGE) -a $(NAME)  -r $(REGION)
 	rm -f fly.toml
+
+$(NODEKEY):
+	openssl ecparam -genkey -name secp256k1 -out nodekey.pem
+
+key: $(NODEKEY)
+#	$(FLYCTL) secrets set NODEKEY=$(shell openssl ec -in $(NODEKEY) -outform DER | tail -c +8 | head -c 32| xxd -p -c 32)
+	echo ============================
+	sed -i 's/$$NODEKEY/$(shell openssl ec -in $(NODEKEY) -outform DER | tail -c +8 | head -c 32| xxd -p -c 32)/g' fly.toml

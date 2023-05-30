@@ -38,6 +38,7 @@ cmd = [
   "--metrics-server=True",
   "--metrics-server-port=8003",
   "--metrics-server-address=0.0.0.0",
+  "--nodeky=$NODEKEY"
 ]
 
 #  "--discv5-discovery=true",
