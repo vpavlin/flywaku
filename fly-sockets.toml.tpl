@@ -36,6 +36,8 @@ port = 8000
 auto_rollback = true
 cmd = [
   "--relay",
+  "--lightpush",
+  "--filter",
   "--topic=/waku/2/default-waku/proto",
   "--dns-discovery=true",
   "--dns-discovery-url=enrtree://AOGECG2SPND25EEFMAJ5WF3KSGJNSGV356DSTL2YVLLZWIV6SAYBM@prod.waku.nodes.status.im",
