@@ -7,7 +7,7 @@ processes = []
 
 
 [build]
-image = "docker.io/statusteam/nim-waku:v0.17.0"
+image = "docker.io/statusteam/nim-waku:v0.19.0-rc.0"
 
 [[services]]
 internal_port = 9005
